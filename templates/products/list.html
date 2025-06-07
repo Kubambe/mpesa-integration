@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Products</h1>
+    <a href="{% url 'product_create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Add Product
+    </a>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for product in products %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.description }}</p>
+                <p class="text-success fw-bold">Ksh {{ product.price }}</p>
+            </div>
+            <div class="card-footer bg-white d-flex justify-content-between">
+                <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-eye"></i> View
+                </a>
+                <a href="{% url 'payment_page' product.id %}" class="btn btn-sm btn-success">
+                    <i class="bi bi-cart-check"></i> Buy Now
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">No products found. Create your first product!</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
